@@ -370,7 +370,7 @@
 
   <!-- PRODUCT DATA y SCRIPTS -->
   <script>
-   const PRODUCTS = [
+    const PRODUCTS = [
       {id:'p1',title:'Paleta de Colores',price:25000,img:'img/Artpaleta2.jpeg',cat:'rostro',desc:'Paleta con tonos básicos.',rating:5},
       {id:'p2',title:'Paleta Rojos',price:20000,img:'img/Artpaleta3.jpeg',cat:'rostro',desc:'Tonos cálidos vibrantes.',rating:4},
       {id:'p3',title:'Hidra Labios',price:10000,img:'img/Artlabial1.jpeg',cat:'labios',desc:'Bálsamo con color natural.',rating:5},
@@ -506,7 +506,90 @@ document.getElementById('userToggleMob').onclick = () => { togglePanel('userPane
         if (panel) panel.classList.remove('open');
       }
     });
+    
+  function seleccionarCategoria(cat) {
+    try {
+      // Guarda por compatibilidad (si tu carrito usa sessionStorage)
+      sessionStorage.setItem('categoriaPinkKey', cat);
+    } catch (e) {
+      // ignora si el storage está bloqueado
+    }
+    // Redirige a carrito.html pasando la categoría por query string
+    window.location.href = 'carrito.html?cat=' + encodeURIComponent(cat);
+  }
+
+
   </script>
+<script>
+/* ---------- Inicialización robusta: lee ?cat=... y aplica el filtro ---------- */
+
+(function () {
+  // Lee categoría desde query string ?cat=... o desde sessionStorage como fallback
+  function getInitialCategory() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get('cat');
+      if (q) return q;
+    } catch (e) { /* ignore */ }
+
+    try {
+      const s = sessionStorage.getItem('categoriaPinkKey');
+      if (s) return s;
+    } catch (e) { /* ignore */ }
+
+    return 'all';
+  }
+
+  // Marca visualmente el botón activo (si tiene data-cat)
+  function markActiveCategory(cat) {
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      const btnCat = btn.dataset ? btn.dataset.cat : null;
+      if (btnCat) {
+        if (btnCat === cat) btn.classList.add('active');
+        else btn.classList.remove('active');
+      }
+    });
+  }
+
+  // Invoca renderProducts con la categoría correcta (si existe)
+  function initPage() {
+    const initialCat = getInitialCategory() || 'all';
+
+    // Si renderProducts existe, usarla
+    if (typeof renderProducts === 'function') {
+      // Llamamos con la categoría detectada
+      renderProducts(initialCat);
+    } else {
+      console.warn('renderProducts no está definida. Asegúrate de tener la función que muestra los productos.');
+    }
+
+    // marcar el botón activo si existe
+    markActiveCategory(initialCat);
+
+    // actualizar contadores y otros elementos visibles (si aplica)
+    if (typeof renderCart === 'function') renderCart();
+    if (typeof renderFav === 'function') renderFav();
+  }
+
+  // Aseguramos que se ejecute al cargar
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPage);
+  } else {
+    initPage();
+  }
+
+  /* Conservar funcionalidad burger / mobile */
+  function openMobileMenu(){ const m = document.getElementById('mobileMenu'); if(m) m.classList.add('open'); }
+  function closeMobileMenu(){ const m = document.getElementById('mobileMenu'); if(m) m.classList.remove('open'); }
+  document.addEventListener('DOMContentLoaded', () => {
+    const burger = document.getElementById('burgerBtn');
+    const mobileClose = document.getElementById('mobileClose');
+    if (burger) burger.addEventListener('click', openMobileMenu);
+    if (mobileClose) mobileClose.addEventListener('click', closeMobileMenu);
+  });
+
+})();
+</script>
 
   <!-- WhatsApp float -->
   <a href="https://wa.me/573105519202?text=¡Hola!%20Quisiera%20más%20información%20sobre%20los%20productos%20de%20Pink%20Key%20💄" class="whatsapp-float" target="_blank" title="Escríbenos por WhatsApp">

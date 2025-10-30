@@ -172,44 +172,40 @@
     <!-- Carousel End -->
      
 
+<!-- BLOQUE CORREGIDO (index.html) -->
 <div class="curate-section">
-    <h2>Arregla tu apariencia</h2>
-    <div class="cards">
-        <div class="card face">
-         
-              <a class="cat-btn" data-cat="rostro" onclick="seleccionarCategoria('rostro')">
-
-                <img src="img/ppppersona1.jpg" alt="Face">
-                <span class="label">Rostro</span>
-            </a>
-      
-
-</a>
-
-    </div>
-    <div class="card lips">
-      <a class="cat-btn" data-cat="labios" onclick="seleccionarCategoria('labios')">
-      <img src="img/persona2.jpg" alt="Lips">
-      <span class="label">Labios</span>
-    </a>
-    </div>
-    <div class="card eyes">
-      <a class="cat-btn" data-cat="ojos" onclick="seleccionarCategoria('ojos')">
-      <img src="img/ppppppp4.png" alt="Eyes">
-      <span class="label">Ojos</span>
+  <h2>Arregla tu apariencia</h2>
+  <div class="cards">
+    <div class="card face">
+      <a class="cat-btn" data-cat="rostro" href="javascript:void(0);" onclick="seleccionarCategoria('rostro')">
+        <img src="img/ppppersona1.jpg" alt="rostro">
+        <span class="label">Rostro</span>
       </a>
     </div>
+
+    <div class="card lips">
+      <a class="cat-btn" data-cat="labios" href="javascript:void(0);" onclick="seleccionarCategoria('labios')">
+        <img src="img/persona2.jpg" alt="Labios">
+        <span class="label">Labios</span>
+      </a>
+    </div>
+
+    <div class="card eyes">
+      <a class="cat-btn" data-cat="ojos" href="javascript:void(0);" onclick="seleccionarCategoria('ojos')">
+        <img src="img/ppppppp4.png" alt="Ojos">
+        <span class="label">Ojos</span>
+      </a>
+    </div>
+
     <div class="card tools">
-     <a class="cat-btn" data-cat="herramientas" onclick="seleccionarCategoria('herramientas')">
-      <img src="img/ppppersona222.jpg" alt="Tools">
-      <span class="label">Herramientas</span>
+      <a class="cat-btn" data-cat="herramientas" href="javascript:void(0);" onclick="seleccionarCategoria('herramientas')">
+        <img src="img/ppppersona222.jpg" alt="Herramientas">
+        <span class="label">Herramientas</span>
       </a>
     </div>
   </div>
 </div>
-</div>
-</div>
-</div>
+
 <script>
 function seleccionarCategoria(cat) {
   sessionStorage.setItem('categoriaPinkKey', cat);
